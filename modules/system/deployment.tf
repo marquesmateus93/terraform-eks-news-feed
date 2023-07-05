@@ -27,12 +27,28 @@ resource "kubernetes_deployment_v1" "deployment" {
         }
       }
       spec {
+        service_account_name = local.service_account_name
+        volume {
+          name = local.volume.name
+          csi {
+            driver    = local.volume.driver
+            read_only = true
+            volume_attributes = {
+              secretProviderClass = local.volume.secret_provider_class
+            }
+          }
+        }
         container {
-          name = local.container_name
+          name  = local.container_name
           image = local.image_name
           port {
             name            = "http"
             container_port  = 80
+          }
+          volume_mount {
+            mount_path  = "/mnt/secrets-store"
+            name        = local.volume.name
+            read_only   = true
           }
           liveness_probe {
             http_get {

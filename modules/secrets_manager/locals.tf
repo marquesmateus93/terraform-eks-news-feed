@@ -1,5 +1,5 @@
 locals {
-  secret_name         = "${var.prefix_name}-rds-secret-1"
+  secret_name         = "${var.prefix_name}-rds-secret"
   secret_role_name    = "${var.prefix_name}-rds-secret-role"
   secret_policy_name  = "${var.prefix_name}-rds-secret-policy"
   eks_name            = "${var.prefix_name}-eks"

@@ -47,7 +47,7 @@ variable "ingress_annotations" {
   }
 }
 
-variable "service_account_role" {
+variable "service_account_role_arn" {
   description = ""
   type        = string
   default     = ""
@@ -64,7 +64,12 @@ variable "kubernetes_manifest" {
   }
 }
 
-variable "secrets_manager_arn" {
+#variable "secrets_manager_arn" {
+#  description = ""
+#  type = string
+#}
+
+variable "secrets_manager_name" {
   description = ""
   type = string
 }

@@ -3,14 +3,15 @@ resource "kubernetes_manifest" "rds-secret" {
     apiVersion  = var.kubernetes_manifest.apiVersion
     kind        = var.kubernetes_manifest.kind
     metadata = {
-      name = local.secret_provider_class_name
+      name      = local.secret_provider_class_name
       namespace = var.kubernetes_manifest.namespace
     }
     spec = {
-      provider = var.kubernetes_manifest.provider
-      parameters = {
+      provider    = var.kubernetes_manifest.provider
+      parameters  = {
         objects = yamlencode({
-          objectName = var.secrets_manager_arn,
+          objectName = var.secrets_manager_name,
+          objectType = "secretsmanager",
           jmesPath = [{
             path        = "name"
             objectAlias = "db_name"
@@ -26,5 +27,3 @@ resource "kubernetes_manifest" "rds-secret" {
     }
   }
 }
-
-# yamlencode({objectName = "ARN", jmesPath = [{path = "pathName", objectAlias = "aliasName"}]})
